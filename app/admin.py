@@ -10,5 +10,10 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ["categoria", "disponibilidad"]
     list_per_page = 10
 
-admin.site.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ["nombre"]
+    search_fields = ["nombre"]
+    list_per_page = 10
+
+admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
