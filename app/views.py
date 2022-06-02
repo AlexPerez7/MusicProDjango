@@ -43,7 +43,7 @@ def agregar_producto(request):
             data["mensaje"] = "Producto agregado correctamente"
         else:
             data["form"] = formulario
-    return render(request, 'app/producto/agregar.html', data)
+    return render(request, 'app/Producto/agregar.html', data)
 
 
 def listar_productos(request):
@@ -51,4 +51,4 @@ def listar_productos(request):
     data = {
         'productos': productos
     }
-    return render(request, 'app/producto/listar.html', data)
+    return render(request, 'app/Producto/listar.html', data)
