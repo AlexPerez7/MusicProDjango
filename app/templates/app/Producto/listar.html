@@ -1,6 +1,30 @@
 <!--Hererdar del template base-->
 {% extends 'app/base.html' %}
 
+
+{% block js %}
+
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title": "¿Está seguro?",
+            "text": "¡No podrá revertir esto!",
+            "icon": 'warning',
+            "showCancelButton": true,
+            "confirmButtonText": 'Si, Eliminar!',
+            "cancelButtonText": "No, Cancelar!",
+            "reverseButtons": true,
+            "confirmButtonColor": '#BB2D3B',
+        }).then(function(result) {
+            if(result.isConfirmed){
+                window.location.href = "/eliminar-producto/"+id+"/";
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
 <!--Heredar el bloque contenido-->
 {% block contenido %}
 
@@ -20,7 +44,7 @@
                 <th>Categoria</th>
             </tr>
 
-            {% for p in productos %}
+            {% for p in entity %} <!--entity es para usar el paginator-->
 
             <tr>
                 <td>{{ p.nombre | title }}</td>
@@ -35,10 +59,18 @@
                 </td>
                 <td>{{ p.stock }}</td>
                 <td>{{ p.categoria | title}}</td>
+                <td>
+                    <a href="{% url 'modificar_producto' p.id %}" class="btn btn-info btn-sm">Modificar</a>
+                    <a href="#" onclick="eliminarProducto({{ p.id }})" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
             </tr>
 
             {% endfor %}
         </table>
+        <!--Paginator-->
+        <div>
+            {% include 'app/paginator.html' %}
+        </div>
     </div>
 </div>
 
