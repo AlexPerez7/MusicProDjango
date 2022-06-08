@@ -26,13 +26,13 @@
 
 <div class="slider">
     <div>
-        <img src="{% static 'app/img/banner/banner1.png' %}" alt="">
+        <img src="{% static 'app/img/banner/banner11.png' %}" alt="">
     </div>
     <div>
-        <img src="{% static 'app/img/banner/banner2.png' %}" alt="">
+        <img src="{% static 'app/img/banner/banner22.png' %}" alt="">
     </div>
     <div>
-        <img src="{% static 'app/img/banner/banner3.png' %}" alt="">
+        <img src="{% static 'app/img/banner/banner33.png' %}" alt="">
     </div>
 </div>
 
@@ -46,8 +46,8 @@
 
         <div class="contenedor_producto">
 
-            {% if p.imagen %}
-            <img src="{{ p.imagen.url }}" alt="imagen producto">
+            {% if p.imagenes %}
+            <img src="{{ p.imagenes.first.imagen.url }}" alt="imagen producto">
             {% endif %}
             <div class="detalle">
                 <h5>{{ p.marca | capfirst }}</h5>

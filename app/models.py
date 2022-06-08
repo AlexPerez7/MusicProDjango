@@ -16,10 +16,15 @@ class Producto (models.Model):
     disponibilidad = models.BooleanField(default=True)
     stock = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    imagen = models.ImageField(upload_to='productos', null=True)
+
 
     def __str__(self):
         return self.nombre
+
+class ImagenProducto (models.Model):
+    imagen = models.ImageField(upload_to='productos')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='imagenes')
+
 
 #Arrelgos con los tipos de consultas
 opciones_consultas = [

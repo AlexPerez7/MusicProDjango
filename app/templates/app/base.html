@@ -42,12 +42,16 @@
                     <li>
                         <a href="{% url 'galeria' %}">Galería</a>
                     </li>
+                    {% if perms.app.add_producto %}
                     <li>
                         <a href="{% url 'agregar_producto' %}">Agregar Producto</a>
                     </li>
+                    {% endif %}
+                    {% if perms.app.view_producto %}
                     <li>
                         <a href="{% url 'listar_productos' %}">Productos</a>
                     </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}">Cerrar Sesión</a>
@@ -85,11 +89,11 @@
 
     <footer>
         <div class="marcas">
-            <img src="{% static 'app/img/footer/apple.png' %}" alt="apple">
-            <img src="{% static 'app/img/footer/lenovo.png' %}" alt="lenovo">
-            <img src="{% static 'app/img/footer/microsoft.png' %}" alt="microsoft">
-            <img src="{% static 'app/img/footer/samsung.png' %}" alt="samsung">
-            <img src="{% static 'app/img/footer/xiaomi.png' %}" alt="xiaomi">
+            <img src="{% static 'app/img/footer/fender.png' %}" alt="fender">
+            <img src="{% static 'app/img/footer/ludwig.png' %}" alt="ludwig">
+            <img src="{% static 'app/img/footer/arturia.png' %}" alt="arturia">
+            <img src="{% static 'app/img/footer/thomann.png' %}" alt="thomann">
+            <img src="{% static 'app/img/footer/stentor.png' %}" alt="stentor">
         </div>
         <div class="logo_footer">
             <img src="{% static 'app/img/musicproicono1.png' %}" alt="logo">

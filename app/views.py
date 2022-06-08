@@ -1,13 +1,35 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto
+from .models import Producto, Categoria
 from .forms import ContactoForm, ProductoForm, CustomUserCreationForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required, permission_required
+from rest_framework import viewsets
+from .serializers import ProductoSerializer, CategoriaSerializer
 
-# Create your views here.
+#Clases
 
+class CategoriaViewSet(viewsets.ModelViewSet):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
+    def get_queryset(self):
+        productos = Producto.objects.all()
+        nombre = self.request.GET.get('nombre')
+
+        if nombre:
+            productos = productos.filter(nombre__contains=nombre)
+        return productos
+
+
+
+# Funciones
 def home(request):
     productos = Producto.objects.all()
     data = {
@@ -30,10 +52,11 @@ def contacto(request):
 
     return render(request, 'app/contacto.html', data)
 
+#@login_required Solo dejará acceder a la vista si el usuario está autenticado
 def galeria(request):
     return render(request, 'app/galeria.html')
 
-
+@permission_required('app.add_producto') # Permiso de agregar productos
 def agregar_producto(request):
 
     data = {
@@ -49,7 +72,7 @@ def agregar_producto(request):
             data["form"] = formulario
     return render(request, 'app/Producto/agregar.html', data)
 
-
+@permission_required('app.view_producto') # Permiso de ver productos
 def listar_productos(request):
     productos = Producto.objects.all()
     page = request.GET.get('page', 1)
@@ -66,6 +89,7 @@ def listar_productos(request):
     }
     return render(request, 'app/Producto/listar.html', data)
 
+@permission_required('app.change_producto') # Permiso de editar productos
 def modificar_producto(request, id):
     producto = get_object_or_404(Producto, id=id)
     data = {
@@ -83,6 +107,7 @@ def modificar_producto(request, id):
     
     return render(request, 'app/Producto/modificar.html', data)
 
+@permission_required('app.delete_producto') # Permiso de eliminar productos
 def eliminar_producto(request, id):
     producto = get_object_or_404(Producto, id=id)
     producto.delete()
