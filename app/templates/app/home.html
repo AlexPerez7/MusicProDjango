@@ -46,8 +46,8 @@
 
         <div class="contenedor_producto">
 
-            {% if p.imagenes %}
-            <img src="{{ p.imagenes.first.imagen.url }}" alt="imagen producto">
+            {% if p.imagen %}
+            <img src="{{ p.imagen.url }}" alt="imagen producto">
             {% endif %}
             <div class="detalle">
                 <h5>{{ p.marca | capfirst }}</h5>

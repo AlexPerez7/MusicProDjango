@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Categoria, Producto, Contacto, ImagenProducto
+from .models import Categoria, Producto, Contacto
 from .forms import ProductoForm, ContactoForm
 
 # Register your models here.
 
-class ImagenProductoAdmin(admin.TabularInline):
-    model = ImagenProducto
+#class ImagenProductoAdmin(admin.TabularInline):
+#    model = ImagenProducto
 
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ["nombre", "marca", "precio", "disponibilidad", "stock", "categoria"]
@@ -14,7 +14,7 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ["categoria", "disponibilidad"]
     list_per_page = 10
     form = ProductoForm
-    inlines = [ImagenProductoAdmin]
+    #inlines = [ImagenProductoAdmin]
 
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ["nombre"]
